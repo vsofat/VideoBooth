@@ -17,7 +17,7 @@ public class VideoGui extends JFrame implements ActionListener{
 
 	pane = new JPanel(new BorderLayout());
 	videoPane = new JPanel(new BorderLayout());
-        modPane = new JPanel(new GridLayout(11,1));
+        modPane = new JPanel(new GridLayout(5,1));
 	capturePane = new JPanel(new GridLayout(1, 11));
 	pane.add(videoPane, BorderLayout.CENTER);
 	pane.add(modPane, BorderLayout.EAST);
@@ -30,12 +30,6 @@ public class VideoGui extends JFrame implements ActionListener{
 	modPane.add(invertH);
 	JButton invertV = new JButton("Invert Vertically");
 	modPane.add(invertV);
-	String[] colors = {"Red","Orange","Yellow","Bright Green","Cyan","Blue","Violet","Magenta"};
-	JComboBox<String> color = new JComboBox<>(colors);
-	color.setEditable(false);
-        JLabel t = new JLabel("Tint Color:");
-	modPane.add(t);
-	modPane.add(color);
 	JButton tint = new JButton("Tint");
 	modPane.add(tint);
 	JButton grayscale = new JButton("Grayscale");
