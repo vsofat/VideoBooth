@@ -23,4 +23,7 @@ public class ChangeColorGui extends JFrame implements ActionListener{
 	System.out.println(newC);
         a.setColor(newCol);
     }
+    public void stateChanged(ChangeEvent e) {
+	Color newColor = a.
+    }
 }
