@@ -19,8 +19,11 @@ public class ChangeColorGui extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
 	Color initial = Color.BLACK;
 	Color newCol = JColorChooser.showDialog(this,"Choose a Color",initial);
-	Color newC = a.getColor();
-	System.out.println(newC);
+	//Color newC = a.getColor();
+	//System.out.println(newC);
         a.setColor(newCol);
     }
+    //public void stateChanged(ChangeEvent e) {
+    //	Color newColor = a.
+    //}
 }
