@@ -68,6 +68,11 @@ public class VideoGui extends JFrame implements ActionListener{
 	    col.setVisible(true);
 	    System.out.println(getColor());
 	}
+	if (s.equals("Invert Horizontally") ||
+	    s.equals("Invert Vertically")) {
+	    Invert i = new Invert();
+	    
+	}
 	
     }
     public void setColor(Color newColor) {
