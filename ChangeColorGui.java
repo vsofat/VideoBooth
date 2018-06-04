@@ -25,6 +25,9 @@ public class ChangeColorGui extends JFrame implements ActionListener{
 	col = newCol;
         a.setColor(newCol);
     }
+    public Color getCol() {
+	return col;
+    }
     public Color newCol() {
 	return col;
     }
