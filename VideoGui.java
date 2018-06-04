@@ -4,11 +4,11 @@ import java.awt.event.*;
 public class VideoGui extends JFrame implements ActionListener{
     //private Capture video;
     private JPanel modPane;
-    private JPanel videoPane;
     private JPanel capturePane;
     private Container pane;
     private Color color;
     private VideoGui z = null;
+    private PApplet videoPane;
 
     public VideoGui() {
 	this.setTitle("Amit and Jeremy's Video Editor");
