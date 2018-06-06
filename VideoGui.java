@@ -18,7 +18,7 @@ public class VideoGui extends JFrame implements ActionListener{
 	this.setResizable(true);
 
 	pane = new JPanel(new BorderLayout());
-	videoPane = new PApplet();
+	videoPane = new Video();
         modPane = new JPanel(new GridLayout(5,1));
 	capturePane = new JPanel(new GridLayout(2, 2));
 	pane.add(videoPane, BorderLayout.CENTER);
