@@ -6,6 +6,7 @@ int cols, rows;
 void setup() {
   size(320, 240);  
   video = new Capture(this, 320, 240); 
+  frameRate(5);
   video.start();
   frame = new PImage(320,240);
   cols = width/10;
@@ -24,32 +25,61 @@ void captureEvent(Capture video) {
 }
 
 void draw() {
-  //loadPixels();
-  //translate(width/2,height/2);
   imageMode(CENTER);
-  //reverse();
   frame = video;
-  //image(frame,width/2,height/2);
-  //scale(1,-1);
-  reverseGray();
-  /*
-  pushMatrix();
-  scale(-1,1);
-  grayscale();
-  image(frame,width/2,height/2);
-  popMatrix();
-  */
+  reversePosterize();
 }
 void reverseGray() {
   pushMatrix();
   scale(-1,1);
   frame.filter(GRAY);
   image(frame, -frame.width/2, frame.height/2);
-  //translate(320,240);
   popMatrix();
 }
 
-void grayscale() {
-  frame.filter(THRESHOLD);
-  //reverse();
+void reverseInvert() {
+  pushMatrix();
+  scale(-1,1);
+  frame.filter(INVERT);
+  image(frame, -frame.width/2, frame.height/2);
+  popMatrix();
+}
+
+void reverseDilate() {
+  pushMatrix();
+  scale(-1,1);
+  frame.filter(DILATE);
+  image(frame, -frame.width/2, frame.height/2);
+  popMatrix();
+}
+
+void reverseBlur() {
+  pushMatrix();
+  scale(-1,1);
+  frame.filter(BLUR,6);
+  image(frame, -frame.width/2, frame.height/2);
+  popMatrix();
+}
+
+void reverseErode() {
+  pushMatrix();
+  scale(-1,1);
+  frame.filter(ERODE);
+  image(frame, -frame.width/2, frame.height/2);
+  popMatrix();
+}
+
+void reversePosterize() {
+  pushMatrix();
+  scale(-1,1);
+  frame.filter(POSTERIZE,3);
+  image(frame, -frame.width/2, frame.height/2);
+  popMatrix();
+}
+
+void reverse() {
+  pushMatrix();
+  scale(-1,1);
+  image(frame, -frame.width/2, frame.height/2);
+  popMatrix();
 }
