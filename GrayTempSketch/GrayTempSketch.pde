@@ -3,6 +3,7 @@ import processing.video.*;
 Capture video;
 PImage frame; 
 int cols, rows;
+
 void setup() {
   size(320, 240);  
   video = new Capture(this, 320, 240); 
@@ -11,6 +12,11 @@ void setup() {
   frame = new PImage(320,240);
   cols = width/10;
   rows = height/10;
+  invertH = true;
+  invertV = false;
+  tinted = false;
+  grayscaled = false;
+  clicked = false;
 }
 
 void captureEvent(Capture video) {
@@ -27,7 +33,13 @@ void captureEvent(Capture video) {
 void draw() {
   imageMode(CENTER);
   frame = video;
-  reversePosterize();
+  /*
+  for (int i = 0; i < 7; i ++) {
+    chooseReverse(i);
+    delay(100000);
+  }
+  */
+  reverseThreshold();
 }
 void reverseGray() {
   pushMatrix();
@@ -77,9 +89,41 @@ void reversePosterize() {
   popMatrix();
 }
 
+void reverseThreshold() {
+  pushMatrix();
+  scale(-1,1);
+  frame.filter(THRESHOLD);
+  image(frame, -frame.width/2, frame.height/2);
+  popMatrix();
+}
+
 void reverse() {
   pushMatrix();
   scale(-1,1);
   image(frame, -frame.width/2, frame.height/2);
   popMatrix();
+}
+
+void chooseReverse(int val) {
+  if (val == 0) {
+    reverse();
+  }
+  if (val == 1) {
+    reversePosterize();
+  }
+  if (val == 2) {
+    reverseErode();
+  }
+  if (val == 3) {
+    reverseBlur();
+  }
+  if (val == 4) {
+    reverseDilate();
+  }
+  if (val == 5) {
+    reverseInvert();
+  }
+  if (val == 6) {
+    reverseGray();
+  }
 }
