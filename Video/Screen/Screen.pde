@@ -1,7 +1,5 @@
 public class Screen extends PApplet{
-   public static void main(String[] args) {
-     PApplet.main("Screen");
-   }
+   Video vid;
    public void settings() {
      size(600,500);
    }
@@ -61,7 +59,8 @@ public class Screen extends PApplet{
      fill(50);
      text(s7,298,418,350,25);
      
-     fill(0,255,0);
+     
+     vid.translate(25,25);(,0);
      rect(25,25, 350, 350);
      String s8 = "CAMERA HERE";
      fill(50);

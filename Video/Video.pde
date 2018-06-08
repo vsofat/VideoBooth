@@ -1,5 +1,6 @@
+public class Video {
 import processing.video.*;
-
+  
 import java.lang.*;
 //Tinting
 
@@ -11,8 +12,8 @@ int blue = 153;
 int cols, rows;
 
 void setup() {
-  size(320, 240);  
-  video = new Capture(this, 320, 240); 
+  size(350, 250);  
+  video = new Capture(this, 350, 350); 
   video.start();
   cols = width/10;
   rows = height/10;
@@ -182,3 +183,4 @@ void reverse() {
   popMatrix();
 }
 */
+}
