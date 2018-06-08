@@ -1,5 +1,5 @@
 public class Screen extends PApplet{
-   Video vid;
+  Video vid;
    public void settings() {
      size(600,500);
    }

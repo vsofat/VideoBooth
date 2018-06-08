@@ -1,27 +1,25 @@
+public class Video {
 import processing.video.*;
   
 import java.lang.*;
-public class Video extends PApplet{
 //Tinting
 
-public Capture video;
+Capture video;
 
-private int red = 0;
-private int green = 153 ;
-private int blue = 153;
-private int cols, rows;
-public void settings() {
-  size(600,500);
-}
-public void setup() {
-  video = new Capture(this, 320, 240); 
+int red = 0;
+int green = 153 ;
+int blue = 153;
+int cols, rows;
+
+void setup() {
+  size(350, 250);  
+  video = new Capture(this, 350, 350); 
   video.start();
   cols = width/10;
   rows = height/10;
-  background(255);
 }
 
-public void captureEvent(Capture video) {
+void captureEvent(Capture video) {
   if (video.available()) {
     video.read();
   }
@@ -31,65 +29,26 @@ public void captureEvent(Capture video) {
   }
 }
 
-public void draw() { 
-     
-     fill(255,204,0);
-     rect(450,50, 125, 50);
-     String s1 = "Invert Horizontally";
-     fill(50);
-     text(s1,460,65,350,25);
-     //rect(350,50, 100, 50);
-     fill(255,204,0);
-     rect(450,125, 125, 50);
-     String s2 = "Invert Vertically";
-     fill(50);
-     text(s2,465,140,350,25);
-     fill(255,204,0);
-     rect(450,200, 125, 50);
-     String s3 = "Tint";
-     fill(50);
-     text(s3,490,215,350,25);
-     fill(255,204,0);
-     rect(450,275, 125, 50);
-     String s4 = "Grayscale";
-     fill(50);
-     text(s4,480,290,350,25);
-     fill(255,204,0);
-     rect(450,350, 125, 50);
-     String s5 = "Sticker";
-     fill(50);
-     text(s5,485,365,350,25);
-     
-     fill(255,0,0);
-     rect(75,400, 150, 50);
-     String s6 = "Record Vid";
-     fill(50);
-     text(s6,118,418,350,25);
-     
-     fill(255,0,0);
-     rect(250,400, 150, 50);
-     String s7 = "Take Pic";
-     fill(50);
-     text(s7,298,418,350,25);
-     loadPixels();
-     //background(255);
-     //tintify(red,green,blue);
-     video.loadPixels();
-     translate(width/2, height/2);  
-     translate(-100,-100);
-     imageMode(CENTER); 
-     threshold();
-     //grayscale();
-     reverse();
+void draw() { 
+  loadPixels();
+  //background(255);
+  //tintify(red,green,blue);
+  video.loadPixels();
+  translate(width/2, height/2);  
+  imageMode(CENTER); 
+  threshold();
+  //grayscale();
+  reverse();
+  //updatePixels();
 }
-public void tintify(int r, int g, int b) {
+void tintify(int r, int g, int b) {
    red = r;
    green = g;
    blue = b;
    tint(red,green,blue);
 }
 
-public void grayscale() {
+void grayscale() {
   for (int i = 0; i < cols; i ++) {
     for (int j = 0; j < rows; j ++) {
       color c = video.pixels[i + j*cols];
@@ -105,7 +64,7 @@ public void grayscale() {
     }
   }
 }
-public void threshold() {
+void threshold() {
   //video.loadPixels();
   for (int i = 0; i < cols; i ++) {
     for (int j = 0; j < rows; j ++) {
@@ -119,11 +78,11 @@ public void threshold() {
         //set(i,j,255);
         video.pixels[i+j*cols] = color(255);
       }
-    }
+  }
   }
   video.updatePixels();
 }
-public void reverse() {
+void reverse() {
   pushMatrix();
   scale(-1,1);
   image(video, 0, 0);
