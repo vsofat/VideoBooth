@@ -1,6 +1,5 @@
 import processing.video.*;
 
-
 import java.lang.*;
 //Tinting
 
@@ -29,22 +28,23 @@ void captureEvent(Capture video) {
   }
 }
 
-void draw() {  
-  background(255); 
-  //tint(red,green,blue);
-  //filter(INVERT);
-  //video.loadPixels();
+void draw() { 
+  loadPixels();
+  //background(255);
+  //tintify(red,green,blue);
+  video.loadPixels();
   translate(width/2, height/2);  
   imageMode(CENTER); 
   threshold();
-  // grayscale();
+  //grayscale();
   reverse();
-  updatePixels();
+  //updatePixels();
 }
 void tintify(int r, int g, int b) {
    red = r;
    green = g;
    blue = b;
+   tint(red,green,blue);
 }
 
 void grayscale() {
@@ -57,24 +57,25 @@ void grayscale() {
       int x = int(2989 * r + 5870 *g + 114*b);
       color cT = color(x);
       System.out.println(cT);
-      video.pixels[i+j*cols] = cT;
+      set(j,i,cT);
+     // video.pixels[i+j*cols] = cT;
       //System.out.print(video.pixels[i+j*cols]);
     }
   }
 }
 void threshold() {
-  video.loadPixels();
+  //video.loadPixels();
   for (int i = 0; i < cols; i ++) {
     for (int j = 0; j < rows; j ++) {
       color c = video.pixels[i+j*cols];
       float val = saturation(c);
       if (val < .5) {
        // set(i,j,0);
-        video.pixels[i+j*cols] = color(0,0,0);
+        video.pixels[i+j*cols] = color(0);
       }
       else {
         //set(i,j,255);
-        video.pixels[i+j*cols] = color(255,255,255);
+        video.pixels[i+j*cols] = color(255);
       }
   }
   }
@@ -87,9 +88,9 @@ void reverse() {
   popMatrix();
 }
 
+
 /*
 // Mirroring
-/*
 int videoScale = 8;
 // Number of columns and rows in the system
 int cols, rows;
