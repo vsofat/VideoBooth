@@ -6,7 +6,7 @@ public class FullCam extends PApplet{
 
 public Capture video;
 public PImage frame;
-public boolean invertH, invertV, tinted, grayscaled, dilated;
+public boolean invertCol, invertV, tinted, grayscaled, dilated;
 private int red = 0;
 private int green = 153 ;
 private int blue = 153;
@@ -17,12 +17,12 @@ public void settings() {
 public void setup() {
   //size(320, 240);  
   video = new Capture(this, 320, 240); 
-  frameRate(5);
+  frameRate(15);
   video.start();
   frame = new PImage(425,375);
   cols = width/10;
   rows = height/10;
-  invertH = true;
+  invertCol = false;
   invertV = false;
   tinted = false;
   grayscaled = false;
@@ -43,7 +43,7 @@ public void draw() {
      
      fill(255,204,0);
      rect(450,50, 125, 50);
-     String s1 = "Invert Horizontally";
+     String s1 = "Invert Colors";
      fill(50);
      text(s1,460,65,350,25);
      //rect(350,50, 100, 50);
@@ -87,11 +87,9 @@ public void draw() {
      //translate(-100,-100);
      imageMode(CENTER); 
      frame = video;
-     if (invertH) {
-       reverse();
-     }
-     if (invertV) {
-        reverse();
+     reverse();
+     if (invertCol) {
+       reverseInvert();
      }
      if (tinted) {
        tintify(225, 105, 180); 
@@ -105,55 +103,71 @@ public void draw() {
      mousedPressed();
      //reverseThreshold();
 }
+
+public void mousedPressed() {
+  //println(mouseX + " " + mouseY);
+  if (mousePressed &&          //Horizontal Invert
+    mouseX >= 450 &&
+    mouseX <= 575 &&
+    mouseY >= 50 &&
+    mouseY <= 100) {
+      //println("woo");
+      invertH = !(invertH);
+    }
+    if (mousePressed &&        //Dilate
+    mouseX >= 450 &&
+    mouseX <= 575 &&
+    mouseY >= 125 &&
+    mouseY <= 175) {
+      //println("woo");
+      dilated = !(dilated);
+    }
+    if (mousePressed &&     //Tint
+    mouseX >= 450 &&
+    mouseX <= 575 &&
+    mouseY >= 200 &&
+    mouseY <= 250) {
+      //println("woo");
+      //invertH = !(invertH);
+      tinted = !(tinted);
+    }
+    if (mousePressed &&     //Grayscale
+    mouseX >= 450 &&
+    mouseX <= 575 &&
+    mouseY >= 270 &&
+    mouseY <= 350) {
+      //println("woo");
+      grayscaled = !(grayscaled);
+    }
+    if (mousePressed &&       //Sticker
+    mouseX >= 450 &&
+    mouseX <= 575 &&
+    mouseY >= 350 &&
+    mouseY <= 400) {
+      println("woo");
+      invertH = !(grayscaled);
+    }
+    if (mousePressed &&        //Record Video
+    mouseX >= 75 &&
+    mouseX <= 225 &&
+    mouseY >= 400 &&
+    mouseY <= 450) {
+      println("woo");
+    }
+    if (mousePressed &&        //Take Picture
+    mouseX >= 250 &&
+    mouseX <= 400 &&
+    mouseY >= 400 &&
+    mouseY <= 450) {
+      println("woo");
+    }
+}
 public void tintify(int r, int g, int b) {
    red = r;
    green = g;
    blue = b;
    tint(red,green,blue);
 }
-/*
-public void grayscale() {
-  for (int i = 0; i < cols; i ++) {
-    for (int j = 0; j < rows; j ++) {
-      color c = video.pixels[i + j*cols];
-      float r = red(c);
-      float b = blue(c);
-      float g = green(c);
-      int x = int(2989 * r + 5870 *g + 114*b);
-      color cT = color(x);
-      System.out.println(cT);
-      set(j,i,cT);
-     // video.pixels[i+j*cols] = cT;
-      //System.out.print(video.pixels[i+j*cols]);
-    }
-  }
-}
-public void threshold() {
-  //video.loadPixels();
-  for (int i = 0; i < cols; i ++) {
-    for (int j = 0; j < rows; j ++) {
-      color c = video.pixels[i+j*cols];
-      float val = saturation(c);
-      if (val < .5) {
-       // set(i,j,0);
-        video.pixels[i+j*cols] = color(0);
-      }
-      else {
-        //set(i,j,255);
-        video.pixels[i+j*cols] = color(255);
-      }
-    }
-  }
-  video.updatePixels();
-}
-public void reverse() {
-  pushMatrix();
-  scale(-1,1);
-  image(video, 0, 0);
-  popMatrix();
-}
-
-*/
 void reverseGray() {
   pushMatrix();
   scale(-1,1);
@@ -215,133 +229,5 @@ void reverseThreshold() {
   frame.filter(THRESHOLD);
   image(frame, -frame.width/2, frame.height/2);
   popMatrix();
-}
-/*
-// Mirroring
-int videoScale = 8;
-// Number of columns and rows in the system
-int cols, rows;
-// Variable to hold onto Capture object
-Capture video;
-
-void setup() {  
-  size(640, 480);  
-  // Initialize columns and rows  
-  cols = width/videoScale;  
-  rows = height/videoScale;  
-  background(0);
-  video = new Capture(this, cols, rows);
-  video.start();
-}
-
-// Read image from the camera
-void captureEvent(Capture video) {  
-  video.read();
-}
-
-void draw() {
-  video.loadPixels();  
-  // Begin loop for columns  
-  for (int i = 0; i < cols; i++) {    
-    // Begin loop for rows    
-    for (int j = 0; j < rows; j++) {      
-      // Where are you, pixel-wise?      
-      int x = i*videoScale;      
-      int y = j*videoScale;
-      color c = video.pixels[video.width - i -1 + j*video.width];
-      fill(c);   
-      stroke(0);      
-      rect(x, y, videoScale, videoScale);
-    }  
-  }
-  reverse();
-}
-
-void reverse() {
-  pushMatrix();
-  scale(-1,1);
-  image(video, 0, 0);
-  popMatrix();
-}
-
-*/
-/*
-Capture video;
-int rows, cols;
-
-void setup() {
-  size(320, 240);  
-  video = new Capture(this, 320, 240); 
-  video.start();
-  cols = width;
-  rows = height;
-}
-
-void captureEvent(Capture video) {
-  if (video.available()) {
-    video.read();
-  }
-  else {
-    println("No camera found");
-    System.exit(0);
-  }
-}
-*/
-public void mousedPressed() {
-  println(mouseX + " " + mouseY);
-  if (mousePressed &&          //Horizontal Invert
-    mouseX >= 450 &&
-    mouseX <= 575 &&
-    mouseY >= 50 &&
-    mouseY <= 100) {
-      println("woo");
-      invertH = !(invertH);
-    }
-    if (mousePressed &&        //Vertical Invert
-    mouseX >= 450 &&
-    mouseX <= 575 &&
-    mouseY >= 125 &&
-    mouseY <= 175) {
-      println("woo");
-      invertH = !(invertV);
-    }
-    if (mousePressed &&     //Tint
-    mouseX >= 450 &&
-    mouseX <= 575 &&
-    mouseY >= 200 &&
-    mouseY <= 250) {
-      println("woo");
-      //invertH = !(invertH);
-    }
-    if (mousePressed &&     //Grayscale
-    mouseX >= 450 &&
-    mouseX <= 575 &&
-    mouseY >= 270 &&
-    mouseY <= 350) {
-      println("woo");
-      invertH = !(tinted);
-    }
-    if (mousePressed &&       //Sticker
-    mouseX >= 450 &&
-    mouseX <= 575 &&
-    mouseY >= 350 &&
-    mouseY <= 400) {
-      println("woo");
-      invertH = !(grayscaled);
-    }
-    if (mousePressed &&        //Record Video
-    mouseX >= 75 &&
-    mouseX <= 225 &&
-    mouseY >= 400 &&
-    mouseY <= 450) {
-      println("woo");
-    }
-    if (mousePressed &&        //Take Picture
-    mouseX >= 250 &&
-    mouseX <= 400 &&
-    mouseY >= 400 &&
-    mouseY <= 450) {
-      println("woo");
-    }
 }
 }
