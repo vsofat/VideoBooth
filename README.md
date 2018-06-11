@@ -1,7 +1,7 @@
 # VideoBooth
 MKS22X Final Project: Video Booth </n>
 <b>Description of our project </b> </n>
-    This is a video and photo editor created in Processing. You can put filters onto the image/video, as well as save images/videos. The images are updated continuously through the camera of your computer. </n>
+    This is a video and photo editor created in Processing. You can put filters onto the image/video, as well as save images/videos. The images are updated continuously through the camera of your computer. <\n>
 <b>List of features </b> </n>
 <ol>
   <li> Invert—inverts the colors of the image</li>
