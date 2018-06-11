@@ -6,10 +6,9 @@ int red, blue, green;
 PImage frame;
 Capture video;
 ColorPicker pick;
-Toggle tint, invert, gray, blur,threshold,dilate;
+Toggle tint, invert, gray, blur,threshold,dilate,paint;
 Button demo;
 Knob blurKnob;
-
 void setup() {
   background(220);
   controlP5 = new ControlP5(this);
@@ -20,16 +19,18 @@ void setup() {
   frameRate(12);
   video.start();
   pick = controlP5.addColorPicker("Choose a Color").setPosition(400,460).setColorValue(color(255));
-  tint = controlP5.addToggle("Tint",false,350,470,40,40).setLabel("Tint").setColorBackground(color(255,0,0)).setColorActive(color(127,255,0));
-  invert = controlP5.addToggle("Invert",false,0,470,40,40).setLabel("Invert").setColorBackground(color(255,0,0)).setColorActive(color(127,255,0));
-  gray = controlP5.addToggle("Gray",false,50,470,40,40).setLabel("Gray").setColorBackground(color(255,0,0)).setColorActive(color(127,255,0));
-  blurKnob = controlP5.addKnob("Blur Knob",1,10,6,100,470,40).setLabel("Blur Knob");
-  blur = controlP5.addToggle("Blur",false,150,470,40,40).setLabel("Blur").setColorBackground(color(255,0,0)).setColorActive(color(127,255,0));
-  threshold = controlP5.addToggle("Threshold",false,200,470,40,40).setLabel("Threshold").setColorBackground(color(255,0,0)).setColorActive(color(127,255,0));
-  dilate = controlP5.addToggle("Dilate",false,250,470,40,40).setLabel("Dilate").setColorBackground(color(255,0,0)).setColorActive(color(127,255,0));
+  tint = controlP5.addToggle("Tint",false,360,470,40,40).setLabel("Tint").setColorBackground(color(255,0,0)).setColorActive(color(127,255,0));
+  invert = controlP5.addToggle("Invert",false,10,470,40,40).setLabel("Invert").setColorBackground(color(255,0,0)).setColorActive(color(127,255,0));
+  gray = controlP5.addToggle("Gray",false,60,470,40,40).setLabel("Gray").setColorBackground(color(255,0,0)).setColorActive(color(127,255,0));
+  blurKnob = controlP5.addKnob("Blur Knob",1,10,6,110,470,40).setLabel("Blur Knob");
+  blur = controlP5.addToggle("Blur",false,160,470,40,40).setLabel("Blur").setColorBackground(color(255,0,0)).setColorActive(color(127,255,0));
+  threshold = controlP5.addToggle("Threshold",false,210,470,40,40).setLabel("Threshold").setColorBackground(color(255,0,0)).setColorActive(color(127,255,0));
+  dilate = controlP5.addToggle("Dilate",false,260,470,40,40).setLabel("Dilate").setColorBackground(color(255,0,0)).setColorActive(color(127,255,0));
+  paint = controlP5.addToggle("Paint",false, 310, 470, 40,40).setLabel("Paint").setColorBackground(color(255,0,0)).setColorActive(color(127,255,0));
 }
 
 void draw() {
+  ultimateChecker();
   frame = video;
   //image(frame,width/2-160,height/2-120);
   reverse();
@@ -167,7 +168,32 @@ void ultimateChecker() {
   if (dilate.getValue() == 1) {
     reverseDilate();
   }
+  //stroke(5);
+  //smooth();
+  if (paint.getValue() == 1) {
+    color c = pick.getColorValue();
+    paint(c);
+    
+  }
   
+}
+void paint(int c) {
+      pushMatrix();
+      noStroke();
+      fill(c);
+      if (mouseY <= 450 && mousePressed) {
+        fill(c);
+        ellipse(mouseX, mouseY,10,10);
+      }
+      scale(-1,1);
+      image(frame, -frame.width/2, frame.height/2);
+      popMatrix();
+      noStroke();
+      fill(c);
+      if (mouseY <= 450 && mousePressed) {
+        fill(c);
+        ellipse(mouseX, mouseY,10,10);
+      }
 }
 /*
 void lens() {
@@ -185,6 +211,5 @@ void lens() {
     }
   }
 }
-
 */
   
