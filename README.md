@@ -2,7 +2,7 @@
 MKS22X Final Project </br>
 <b>Project Description</b> </br></br>
 Amit and Jeremy created a photo booth with many different features and a save function. </br>
-</br><b>List of Features </br>
+</br><b>List of Features </b></br>
 <ol>
   <li> Invert—Invert the colors of the image</li>
   <li>Gray—Grayscale the image</li>
