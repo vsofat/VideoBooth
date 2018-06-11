@@ -12,11 +12,6 @@ void setup() {
   frame = new PImage(320,240);
   cols = width/10;
   rows = height/10;
-  invertH = true;
-  invertV = false;
-  tinted = false;
-  grayscaled = false;
-  clicked = false;
 }
 
 void captureEvent(Capture video) {
@@ -33,13 +28,7 @@ void captureEvent(Capture video) {
 void draw() {
   imageMode(CENTER);
   frame = video;
-  /*
-  for (int i = 0; i < 7; i ++) {
-    chooseReverse(i);
-    delay(100000);
-  }
-  */
-  reverseThreshold();
+  reverseDilate();
 }
 void reverseGray() {
   pushMatrix();

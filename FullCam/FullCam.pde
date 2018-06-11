@@ -6,7 +6,7 @@ public class FullCam extends PApplet{
 
 public Capture video;
 public PImage frame;
-public boolean invertCol, invertV, tinted, grayscaled, dilated;
+public boolean invertCol, invertV, tinted, grayscaled, dilated,invertH;
 private int red = 0;
 private int green = 153 ;
 private int blue = 153;
