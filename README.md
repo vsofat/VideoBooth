@@ -12,7 +12,7 @@ Amit and Jeremy created a photo booth with many different features and a save fu
   <li>Paint—Paint color set to onto the image (keep in mind this will freeze the image in place when you press it) </li>
   <li>Reset—Resets all image settings</li>
   <li>Peach—Changes image to peach filter</li>
-  <li>Take Picture—Saves current image as .jpg file</li>
+  <li>Take Picture—Saves current image as .jpg file. NOTE: pictures do not save tinted or painted upon images.</li>
   <li>Tint—Tints the image to the color and transparency it's set to</li>
 </ol></br></br>
 We did not demo before monday since we didn't have the adapter for our camera to the class projector. </br></br>
