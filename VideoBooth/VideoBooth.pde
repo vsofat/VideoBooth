@@ -23,22 +23,22 @@ void setup() {
   //frameRate(12);
   video.start();
   pick = controlP5.addColorPicker("Choose a Color").setPosition(400,460).setColorValue(color(255));
-  tint = controlP5.addToggle("Tint",false,570,540,40,40).setLabel("Tint").setColorBackground(color(255,0,0)).setColorActive(color(127,255,0));
-  transparency = controlP5.addKnob("Transparency",1,255,255,500,540,40).setLabel("Transparency");
+  tint = controlP5.addToggle("Tint",false,590,540,40,40).setLabel("Tint").setColorBackground(color(255,0,0)).setColorActive(color(127,255,0));
+  transparency = controlP5.addKnob("Transparency",1,255,255,520,540,40).setLabel("Transparency");
   invert = controlP5.addToggle("Invert",false,10,470,40,40).setLabel("Invert").setColorBackground(color(255,0,0)).setColorActive(color(127,255,0));
   gray = controlP5.addToggle("Gray",false,60,470,40,40).setLabel("Gray").setColorBackground(color(255,0,0)).setColorActive(color(127,255,0));
-  erode = controlP5.addToggle("Erode",false,110,470,40,40).setLabel("Erode").setColorBackground(color(255,0,0)).setColorActive(color(127,255,0));
-  threshold = controlP5.addToggle("Threshold",false,210,470,40,40).setLabel("B&W").setColorBackground(color(255,0,0)).setColorActive(color(127,255,0));
-  dilate = controlP5.addToggle("Dilate",false,160,470,40,40).setLabel("Dilate").setColorBackground(color(255,0,0)).setColorActive(color(127,255,0));
-  takePic = controlP5.addBang("Take Pic",270,540,100,30).setLabel("Take Picture").setColorBackground(color(0));
+  erode = controlP5.addToggle("Erode",false,60,540,40,40).setLabel("Erode").setColorBackground(color(255,0,0)).setColorActive(color(127,255,0));
+  threshold = controlP5.addToggle("Threshold",false,110,470,40,40).setLabel("B&W").setColorBackground(color(255,0,0)).setColorActive(color(127,255,0));
+  dilate = controlP5.addToggle("Dilate",false,110,540,40,40).setLabel("Dilate").setColorBackground(color(255,0,0)).setColorActive(color(127,255,0));
+  takePic = controlP5.addBang("Take Pic",220,540,125,30).setLabel("Take Picture").setColorBackground(color(0));
   posterize = controlP5.addToggle("Posterize",false,10,540,40,40).setLabel("Peach").setColorBackground(color(255,0,0)).setColorActive(color(127,255,0));
-  paint = controlP5.addToggle("Paint",false,260,470,40,40).setLabel("Paint").setColorBackground(color(255,0,0)).setColorActive(color(127,255,0));
-  reset = controlP5.addToggle("Reset",false,320,470,40,40).setLabel("Reset").setColorBackground(color(255,0,0)).setColorActive(color(127,255,0));
+  paint = controlP5.addToggle("Paint",false,400,540,40,40).setLabel("Paint").setColorBackground(color(255,0,0)).setColorActive(color(127,255,0));
+  reset = controlP5.addToggle("Reset",false,450,540,40,40).setLabel("Reset").setColorBackground(color(255,0,0)).setColorActive(color(127,255,0));
   
   PFont font1 = createFont("Arial",20,true);
   ControlFont font = new ControlFont(font1,241);
   tint.getCaptionLabel().setFont(font).setSize(12);
-  tint.getCaptionLabel().getStyle().marginLeft = 3;
+  tint.getCaptionLabel().getStyle().marginLeft = 5;
   tint.getCaptionLabel().getStyle().marginTop = 0;
   invert.getCaptionLabel().setFont(font).setSize(12);
   invert.getCaptionLabel().getStyle().marginLeft = 1;
@@ -56,10 +56,10 @@ void setup() {
   erode.getCaptionLabel().getStyle().marginLeft = 1;
   erode.getCaptionLabel().getStyle().marginTop = 0;
   takePic.getCaptionLabel().setFont(font).setSize(12);
-  takePic.getCaptionLabel().getStyle().marginLeft = 1;
+  takePic.getCaptionLabel().getStyle().marginLeft = 10;
   takePic.getCaptionLabel().getStyle().marginTop = 0;
   transparency.getCaptionLabel().setFont(font).setSize(12);
-  transparency.getCaptionLabel().getStyle().marginLeft = 3;
+  transparency.getCaptionLabel().getStyle().marginLeft = 0;
   transparency.getCaptionLabel().getStyle().marginTop = 0;
   posterize.getCaptionLabel().setFont(font).setSize(12);
   posterize.getCaptionLabel().getStyle().marginLeft = 1;
@@ -91,11 +91,10 @@ public void controlEvent(ControlEvent theEvent) {
         frameRate(12);
         framePrev = frame;
         tintify();
-        tint.setLabel("Tint On");
+       // tint.setLabel("Tint On");
       }
       else {
         tintify(5);
-        tint.setLabel("Tint Off");
       }
     }
 }
@@ -232,6 +231,9 @@ void ultimateChecker() {
     dilate.setValue(0);
     posterize.setValue(0);
     paint.setValue(0);
+    pick.setColorValue(color(255));
+    tint.setValue(0);
+    tintify();
     painted = true;
     video.start();
     reset.setValue(0);
@@ -249,6 +251,7 @@ void ultimateChecker() {
 }
 
 void takePic() {
+  video.stop();
   PImage t = framePrev.copy();
   PImage newImg = createImage(640,540,RGB);
   newImg = t.get();
@@ -259,6 +262,7 @@ void takePic() {
  // System.out.println(newImg.get(0,0));
   newImg.save("Output" + val + ".jpg");
   val ++;
+  video.start();
   
 }
 /*
