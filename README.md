@@ -17,4 +17,4 @@ Amit and Jeremy created a photo booth with many different features and a save fu
 </ol></br></br>
 We did not demo before monday since we didn't have the adapter for our camera to the class projector. </br></br>
 <b> How to Run our Program </b> </br>
-Open the terminal and type "cd VideoBooth" and press enter. Type "open -a processing VideoBooth.pde" and press enter. Then, click the arrow in the top left and run!
+Open the terminal and type "cd VideoBooth" and press enter. Type "open -a processing VideoBooth.pde" and press enter. Then, click the arrow in the top left and run! You also need to import ControlP5 and Video to run.
